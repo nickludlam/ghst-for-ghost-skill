@@ -32,7 +32,7 @@ For this skill to function, the `ghst` binary must be available in the system's 
 
 ### Local Installation
 
-Install the CLI globally using npm:
+Install the CLI globally from the official npm registry using npm:
 
 ```bash
 npm install -g @tryghost/ghst
@@ -43,6 +43,8 @@ Alternatively, you can run it via `npx` without a permanent installation (though
 ```bash
 npx @tryghost/ghst --help
 ```
+
+> **Security**: Always install `@tryghost/ghst` from the official npm registry (`https://www.npmjs.com/package/@tryghost/ghst`). Consider pinning to a specific, reviewed version rather than relying on whatever version resolves at runtime (e.g., `npm install -g @tryghost/ghst@1.2.3`). Keep the package updated intentionally and review release notes before upgrading.
 
 ### Docker / Containerized Environments
 
@@ -59,6 +61,10 @@ To interact with a Ghost instance, the agent requires a Ghost API URL and a Ghos
 1. **Explicit flags**: `--url` and `--staff-token`
 2. **Environment variables**: `GHOST_URL` and `GHOST_STAFF_ACCESS_TOKEN`
 
+
+### Staff Account & Token Security
+
+To minimize risk, create a **dedicated Ghost staff account** specifically for agent access and grant it only the **least privileges** required (e.g., Author or Editor rather than Owner). Store the `GHOST_STAFF_ACCESS_TOKEN` securely—never commit it to version control or expose it in chat logs. If the token is ever leaked, rotate it immediately via the Ghost Admin panel, and disable or remove the token when the agent no longer needs access.
 
 ### Instructions for Bot Owners
 
@@ -180,8 +186,20 @@ Detailed documentation for each resource can be found in the `references/` direc
 
 ### 4. Safe Operation & Protections
 
-- **Approvals & Notices**: You must explicitly ask the user before performing destructive commands or bulk updates. **Note**: The CLI emits `GHST_AGENT_NOTICE:` lines on `stderr` when a manual confirmation is interrupted. If you see this, you **must** stop and ask the user for explicit approval.
-- **Destructive Commands**: Always use `--yes --non-interactive` for the following once approved:
+- **Approvals & Notices**: You must obtain **explicit user confirmation** before performing any of the following actions:
+    - Publishing, scheduling, or unpublishing posts/pages
+    - Deleting posts, pages, members, comments, labels, themes, or any resource
+    - Bulk updates or bulk deletes (`ghst ... bulk ...`)
+    - Changing site settings (`ghst setting set`)
+    - Creating, updating, or deleting webhooks (`ghst webhook`)
+    - Importing or exporting data (`ghst migrate`, `ghst member export`)
+    - Raw API calls (`ghst api`)
+
+    **Note**: The CLI emits `GHST_AGENT_NOTICE:` lines on `stderr` when a manual confirmation is interrupted. If you see this, you **must** stop and ask the user for explicit approval.
+
+- **Prefer Listing / Fetching First**: Before performing any destructive or mutating action, prefer to list or fetch the target resource to verify its identity. Always use **exact IDs** or **exact slugs** rather than fuzzy matching or assumptions.
+
+- **Destructive Commands**: Only use `--yes --non-interactive` for the following once the user has explicitly approved:
     - `ghst member bulk --action delete`
     - `ghst label bulk --action delete`
     - `ghst socialweb delete`
