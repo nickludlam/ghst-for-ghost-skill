@@ -1,6 +1,6 @@
 # ghst Agent Skill for managing the Ghost CMS
 
-**Version: 1.0.2**
+**Version: 1.0.3**
 
 This repository contains the `ghst` skill for Agents, allowing your AI agent to interact directly with any Ghost blog or publication via the Ghost Admin API. 
 It acts as a wrapper around the [@tryghost/ghst](https://github.com/TryGhost/ghst) CLI tool.
