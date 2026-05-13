@@ -1,5 +1,7 @@
 # OpenClaw `ghst` Skill
 
+**Version: 1.0.1**
+
 This repository contains the `ghst` skill for OpenClaw, allowing your AI agent to interact directly with any Ghost blog or publication via the Ghost Admin API. 
 It acts as a wrapper around the [@tryghost/ghst](https://github.com/TryGhost/ghst) CLI tool.
 
