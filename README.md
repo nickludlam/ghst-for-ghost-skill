@@ -6,7 +6,7 @@ This repository contains the `ghst` skill for Agents, allowing your AI agent to 
 It acts as a wrapper around the [@tryghost/ghst](https://github.com/TryGhost/ghst) CLI tool.
 
 It's available from:
-- [https://github.com/nickludlam/ghst-for-ghost-skill)(https://github.com/nickludlam/ghst-for-ghost-skill)
+- [https://github.com/nickludlam/ghst-for-ghost-skill](https://github.com/nickludlam/ghst-for-ghost-skill)
 - [https://clawhub.ai/nickludlam/ghst](https://clawhub.ai/nickludlam/ghst)
 
 ## Usage
